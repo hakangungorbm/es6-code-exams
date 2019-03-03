@@ -31,22 +31,22 @@ const value3 = 30;  // Const ile tanımlanmış bir değişkene tanimlandigi sco
 
 //BLOCK SCOPE
 
-// if(true) {
-//     //Block scope
-//     // var a = 10;
-//     // let b = 20;
-//     // const c = 30;
+if(true) {
+    //Block scope
+    // var a = 10;
+    // let b = 20;
+    // const c = 30;
 
-//     var value1 = 40;
-//     let value2 = 50;
-//     const value3 = 60;
+    var value1 = 40;
+    let value2 = 50;
+    const value3 = 60;
 
-//     console.log(value1, value2, value3);
-// }
+    console.log(value1, value2, value3);
+}
 
-// console.log(value1, value2, value3);
+console.log(value1, value2, value3);
 
-// console.log(a);
-// console.log(b);  // b block içinde tanımlandığı için burada çalışmaz.
-// console.log(c);  // c de aynı şekilde tanımlandığı block içerisinde geçerli olur.
+console.log(a);
+console.log(b);  // b block içinde tanımlandığı için burada çalışmaz.
+console.log(c);  // c de aynı şekilde tanımlandığı block içerisinde geçerli olur.
 

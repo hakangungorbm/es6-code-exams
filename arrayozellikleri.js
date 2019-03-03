@@ -77,3 +77,11 @@ value = numbers.sort(function(x,y) {
 value = numbers;
 
 console.log(value);
+
+// // Bir DOM objesini veya HTML Collection i array e cevirme.
+
+// const elements = document.all;  // Bize HTML Collection doner  ve foreach gibi methodlar kullanilamaz
+
+// const collections = Array.from(document.all); // Collection array e donusturuldu.
+
+// console.log(collections);  // Collection dan gelen tum icerigi array olarak console a yazar
