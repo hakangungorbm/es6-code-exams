@@ -36,58 +36,111 @@ eventListeners();
 //Tum Event Listener methodlari bu fonksiyonun icinde calisacak
 function eventListeners() {
 
-    form.addEventListener("submit", addTodo);
+   form.addEventListener("submit", addTodo); // form submit olunca calisacak event
+   document.addEventListener("DomContentLoaded", loadAllTodosToUI);  // Sayfa yuklenince olusan event
 
 }
 
 
 
 
-    var todoArray;
+//sayfa yüklendiğinde localstorage dan todo ları alıp ekrana ekleyen method
 
-    function addTodo(e) {
+function loadAllTodosToUI() {
+    let todos = getTodosFromStorage();  // localstorage dan todo lari aldik
+    console.log("Hakan");
+    console.log(todos);
+    
+    todos.forEach(function(e) {   // Aldigimiz TODO larin herbirini donuyoruz. Alt alta yazdiriyoruz.
+        addTodoToUI(e);
+    });
+}
 
-        const newvalue = todoinput.value.trim();   // TRIM fonksiyonu String in basindaki ve sonundaki bosluklari siler
-        
+
+function addTodo(e) {
+
+    const newvalue = todoinput.value.trim();   // TRIM fonksiyonu String in basindaki ve sonundaki bosluklari siler
+
+    if(newvalue === "") {
+//        showAlert(type,message);
+          showAlert("danger","Lutfen bir todo giriniz....");
+    } else {
         addTodoToUI(newvalue);  // inputtan okudugumuz todo yu ekrana basicak olan method
-
-        if(localStorage.getItem("todoArray") === null) {
-            todoArray = [];
-        }
-        else {
-            todoArray = JSON.parse(localStorage.getItem("todoArray"));
-        }
-        todoArray.push(newvalue);
-        e.preventDefault();
+        addTodoToStorage(newvalue); // // inputtan okudugumuz todo yu local storage a yazacak olan method
+        showAlert("success","TODO EKLENDI");
+        todoinput.value = "";
     }
 
-    // inputtan okudugumuz sting degerini list item olarak ekran icin ayarladigimiz alana ekleyecek olan method
-    function addTodoToUI(newTodo) {
-
-        // Asagidaki örnek list-item i olusturuyoruz
-        /* <li class="list-group-item d-flex justify-content-between">Todo 1<a href = "#" class ="delete-item"><i class = "fa fa-remove"></i></a></li> */
-
-        //list Item olusturma
-        const listItem = document.createElement("li");
-        listItem.className = "list-group-item d-flex justify-content-between";
-
-        //list Item icerisindeki linki olusturma
-        const link = document.createElement("a");
-        link.href = "#";
-        link.className = "delete-item";
-        link.innerHTML = "<i class = 'fa fa-remove'></i>";
-
-        // gelen todo lari TEXT NODE olarak ekleme yapiyoruz
-
-        listItem.appendChild(document.createTextNode(newTodo)); // Yukarıda ınputtan okudugumuz degeri text node olarak ekliyoruz
-        listItem.appendChild(link); // <a> linkini ekliyoruz
-
-        // <ul> içerisine olusan listItem i <li> yi ekliyoruz
-        todolist.appendChild(listItem);
-
-        //Ekleme yapildiktan sonra input un degerini siliyoruz
-        todoInput.value = "";
+    e.preventDefault();
+}
 
 
+//TODO lari LOCAL STORAGE a  ekleme
+function getTodosFromStorage() {  // localstorage dan TODO lari alan method
+    let todos;
 
+    if(localStorage.getItem("todos") === null) {
+        todos = [];
     }
+    else{
+        todos = JSON.parse(localStorage.getItem("todos"));  // localstorage da string olarak yazan todos u array olarak aliyoruz
+    }
+    return todos;
+}
+
+
+
+// ara fonksiyon (ekleme islemi yapıyor)
+function addTodoToStorage(newValue) { 
+    let todos = getTodosFromStorage();
+    todos.push(newValue);  // gelen veriyi aldigimiz array e ekledik.
+    localStorage.setItem("todos",JSON.stringify(todos)); // yeni veri eklenmis array i tekrardan string olarak localstorage a gonderiyoruz.
+}
+
+
+//ara fonksiyon (alertleri ekrana basıyor)
+function showAlert(type,message) {
+    //alerti olusturuyouz
+    const alert = document.createElement("div");
+    alert.className = `alert alert-${type}`;
+    alert.textContent = message;
+
+    firstCardBody.appendChild(alert);  // Sectigimiz firstCardBody div inden sonra alert mesaji eklenir. (appendChild) Bu method uygulandigi elementten sonrasina ekleme yapar
+
+    //setTimeout() methodu ise bir işlemin veya fonksiyonun belli bir süre sonunda çalışmasını sağlar.
+    // Kullanimi: setTimeout(fonksiyonAdi, msturundenSure); NOT: 1 saniye = 1000ms’dir.
+    //Bu methodu kullanarak verdigimiz alert in belirli bir sure sonra ortadan kalkmasini sagliyouz
+    setTimeout(function() {
+        alert.remove();
+    },2000);
+
+}
+
+
+
+
+// inputtan okudugumuz sting degerini list item olarak ekran icin ayarladigimiz alana ekleyecek olan method
+function addTodoToUI(newTodo) {
+
+    // Asagidaki örnek list-item i olusturuyoruz
+    /* <li class="list-group-item d-flex justify-content-between">Todo 1<a href = "#" class ="delete-item"><i class = "fa fa-remove"></i></a></li> */
+
+    //list Item olusturma
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item d-flex justify-content-between";
+
+    //list Item icerisindeki linki olusturma
+    const link = document.createElement("a");
+    link.href = "#";
+    link.className = "delete-item";
+    link.innerHTML = "<i class = 'fa fa-remove'></i>";
+
+    // gelen todo lari TEXT NODE olarak ekleme yapiyoruz
+
+    listItem.appendChild(document.createTextNode(newTodo)); // Yukarıda ınputtan okudugumuz degeri text node olarak ekliyoruz
+    listItem.appendChild(link); // <a> linkini ekliyoruz
+
+    // <ul> içerisine olusan listItem i <li> yi ekliyoruz
+    todolist.appendChild(listItem);
+
+}
