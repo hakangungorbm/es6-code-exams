@@ -37,15 +37,96 @@ eventListeners();
 function eventListeners() {
 
    form.addEventListener("submit", addTodo); // form submit olunca calisacak event
-   document.addEventListener("DomContentLoaded", loadAllTodosToUI);  // Sayfa yuklenince olusan event
+   document.addEventListener("DOMContentLoaded", loadAllTodosToUI);  // Sayfa yuklenince olusan event
+   secondCardBody.addEventListener("click",deleteTodo); // Todo silmek icin x iconlarina basinca olusan event
+   filter.addEventListener("keyup",filterTodos);
+   clearButton.addEventListener("click",clearAllTodos);
+}
+
+//TODO ları ARAYUZ den silme
+function deleteTodo(e) {
+    //console.log(e.target); // nereye, hangi elemente tiklandigini alip console a bakiyoruz
+    if(e.target.className === "fa fa-remove") {
+        //console.log("Silme islemi");
+        e.target.parentElement.parentElement.remove(); // tikladigimiz i nin parentlarina giderek li ye ulasip li yi silecegiz. i > a > li yi al ve sil dedik
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent); // Localstorage den de siliyoruz
+        showAlert("success","Todo Basariyla Silindi");
+    }
 
 }
 
+//FOREACH methodu kullanimi
+//Bu fonksiyon bir dizideki her dizi elemanı için belirtilen bir fonksiyonu çalıştırır.
+/*
+array.forEach(function (item, index)
+{
+
+  çalışan kodlar burada
+     
+});*/
+
+//SPLICE methodu kullanimi = arrayden bir tane veya birkactane veriyi silmek icin kullanilir
+// Splice JavaScript'te belirtilen index değerinden sonra silinecek eleman ya da elemanlar için kullanılır.
+//splice metodunda replace'de olduğu iki parametre vardır. İlk parametre silinecek indeks konumunu,
+//ikinci parametre ise indeksten sonra kaç adet elemanın silineceğini belirtir.
 
 
+//TODO lari LOCALSTORAGE dan silme
+//Silmek istedigimiz li elementinin text content ini storage a gonderip storage dan bu gonderilen text i silmemiz gerekiyor
+function deleteTodoFromStorage (todoString) {
+    let todos = getTodosFromStorage();  // Localstorage daki arrayi aliyoruz.
+    todos.forEach(function(todoe,index){ // aldigim array seklindeki todo larin hepsini tek tek gezecegim. ForEach methodu index i de verir bize
+        if(todoe === todoString) {
+            todos.splice(index,1); // O index ten itibaren 1 tane deger sil. Yani sadece o anki uzerinde bulundugumuz bizim if sartimizi saglayan todo yu sil
+        }
+    });
+    localStorage.setItem("todos",JSON.stringify(todos)); // 1 tane todo su silinmis yeni array i local storage a string seklinde tekrar yaziyoruz
+}
+
+//TODO lari FILTRELEME 
+function filterTodos(e) {
+    //console.log(e.target.value); // event imiz nerde olusuyor ve degeri nedir ona bakalim
+    //Arama yaptigimiz kelime bir TODO da geciyorsa on display="block", eger gecmiyorsa display="none" yapacagiz
+    //Kucuk harf buyuk harf duyarliligi olmasin diye hepsini kucuk harfe cevirecegiz
+    const filterValue = e.target.value.toLowerCase(); // tum input degerini kucuk harfe cevirdim
+    //sayfammizdaki tum li leri cekiyoruz
+    const listItems = document.querySelectorAll(".list-group-item"); // Tum li ler
+    listItems.forEach(function(listItem) {
+        const text = listItem.textContent.toLowerCase(); // her bir li nin text i kucuk harflere cevrilmis sekilde elimizde
+        //karsilastirirken indexOf() methodunu kullaniyoruz. 
+        //Bu method karsilastirdigi textler icinde aradigini bulursa 0 bulamazsa - degeri donderiyordu
+        if(text.indexOf(filterValue) === -1) {
+            //Bulunamamıştır
+            listItem.setAttribute("style","display:none !important");
+        }else {
+            listItem.setAttribute("style", "display: block");
+        }
+    });
+}
+
+//TUM TODO lari temizleme
+function clearAllTodos(e) {
+    //ARAYUZDEN TEMIZLEME
+    //Confirm kutusu acacagiz
+    if(confirm("Tumunu silmek istediginize emin misiniz?")) {
+        //Arayuzden TODO lari temizleme
+        //1. Yontem (Tum lileri temizleriz) Yavas yontem
+        todolist.innerHTML= " ";
+
+        //2. Yontem = Hizli Yontem
+        console.log(todolist.firstElementChild); // ilk cocugu aldik
+        while(todolist.firstElementChild !=null) { // null olmadigi muddettce bu dongu calisacak
+            todolist.removeChild(todolist.firstElementChild); // hep ilk li yi silecek. Null olunca(li kalmayinca) while dongusu sonlanacak
+        }
+    // LOCALSTORAGE DAN TEMIZLEME
+    localStorage.removeItem("todos");        
+
+    }
+    
+
+}
 
 //sayfa yüklendiğinde localstorage dan todo ları alıp ekrana ekleyen method
-
 function loadAllTodosToUI() {
     let todos = getTodosFromStorage();  // localstorage dan todo lari aldik
     console.log("Hakan");
