@@ -80,7 +80,7 @@ Person.prototype.test1 = function () {
     console.log("Test 1");
 }
 Person.prototype.test2 = function () {
-    console.log("Test 2");
+    console.log("Test 2 Fonksiyonu calisiyor");
 }
 const person = new Person();
 //console.log(person);
@@ -113,12 +113,17 @@ function Employee(name, age) {
 
 //Uygulamasi
 
-Employee.prototype = Object.create(Person.prototype);
+Employee.prototype = Object.create(Person.prototype); // Employe prototype inin PROTO ozelligi PERSON objesinin Prototype ini gostersin dedik (Normalde object prototype ini gosterirdi)
 
-////Employee objesinin yeni miras haritasi:  empl --- > prototype(empl objesinin prototype  )  --- > prototype(person objesinin prototype'i  )   --- > Object() Prototype'i
+Employee.prototype.myTest = function() {
+    console.log("MyTest Fonksiyonu Calisiyor");   // Employe prototype ine de 1 tane fonksiyon ekledik.
+}
 
 //Bu sayede test1() ve test2() yi Employee objesinden olusturacagimiz bir objede kullanabiliriz.
 
-const empl = new Employee();
+const emp1 = new Employee("Hakan",35);
 
-console.log(empl.test2());
+console.log(emp1);
+console.log(emp1.test2());
+
+////Employee objesinin yeni miras haritasi:  emp1 --- > prototype(emp1 objesinin prototype  )  --- > prototype(person objesinin prototype'i  )   --- > Object() Prototype'i
