@@ -1,0 +1,2 @@
+//ECMASCRIPT nedir? Ecmascript: Javascript'in formal(resmi) adıdır.
+//Ecmascript 6 = Tum tarayıcılar ES5 i destekliyor. Bizim ES6 ile yazdığımız kodlar BABEL (Okunuşu: Beybıl) sayesinde ES5 e çeviriyoruz.
