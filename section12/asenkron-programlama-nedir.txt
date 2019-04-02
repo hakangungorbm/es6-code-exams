@@ -1,0 +1,33 @@
+//Asenkron Programlama
+
+Senkron İşlemler (Eş Zamanlı İşlemler)
+
+Örneğin:
+
+process1();   // 5 sn çalışacaksa
+process2();   // 10 sn çalışacaksa
+process3();   // Bu process3 ün çalışması 15 sn sonra başlar. Diğer 2 tanesi biter. Sonra bu başlar.
+
+Burada process1 bitmeden process2 ye geçemeyiz.
+
+Asenkron İşlemler (Eşzamansız İşlemler)
+
+Örneğin:
+
+process1();   // 5 sn çalışacaksa
+process2();   // 10 sn çalışacaksa. Bu işlem diğer işlemin bitmesini beklemez.
+process3();   // Bu process3 diğer 2 sinin çalışmasını tamamlamasını beklemez.
+
+Asenkron durumlarda her istek ayrı ayrı değerlendirilir. Bu sayede işlemler kitlenmez
+
+JS de asenkron yapılar nelerdir?
+
+1. Ajax
+2. Fetch ($.ajax yerine kullanılan Fecth fonksiyonu. fetch Promise(ES6 dan sonra geldi) tabanlı olduğu için async bir yapıdır.)
+3. Node.js (JS'in server tarafında çalışan bir framework'u)
+
+JS de asenkron işlemleri nasıl yönetiyoruz?
+
+1. Callback (ES6 öncesi ama hala kullanılıyor)
+2. ES6 ile birlikte Promise API
+3. Async & Await  yapısı (ES7 ile birlikte)

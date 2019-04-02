@@ -1,0 +1,130 @@
+Json ve Ajax (Okunuşu: jesın ve ecex)
+-------------------------------------------
+JSON (Javascript Object Notation - Javascript obje gösterimi)
+Json, Javascript uygulamaları için oluşturulmuş bir veri formatıdır. Json’ın çıkış amacı veri transferlerinde verilerin XML’den daha az yer kaplamasını sağlamaktır. 
+
+Java uygulamaları
+.Net uygulamaları
+PHP uygulamaları
+Web servis uygulamaları
+Mobil uygulamaların veri transferleri
+gibi bir çok noktada veriler Json formatında kullanılmaktadır.
+
+Json Objesi
+-----------------------------------
+Süslü parantez ile başlar ve içinde sonsuz sayıda key-value ikilileri bulunabilir. 
+Json türündeki veriler (obje) iki parçadan oluşur: key (anahtar) ve value (değer).
+Key her zaman STRING degerde olur.
+Value farklı türden değerler alabilir: “dizi”, “boolean(true, false)”, “null”, “Json Nesnesi”
+ÖRNEK:
+
+{
+    "Ad": "Veysel Uğur",
+    "Soyad": "Kızmaz",
+    "Bolum": "Bilgisayar Muhendisligi",
+    "Sehir": "Ankara",
+    "Telefon": "05000000000"
+}
+
+Json Dizisi (Array) Yapısı
+------------------------------------
+Her Json dizisi köşeli parantez ile başlar ve içinde sonsuz sayıda değer bulunabilir.
+Dizilerde key-value ikilileri yoktur. Sadece string değer alabileceği gibi Json nesnesi de tanımlanabilir. 
+
+Her Json dizisi köşeli parantez içinde tanımlanır. Dizi içindeki tüm değerler aralarında virgül karakteri gelecek şekilde tanımlanır.
+Dizinin tanımlaması bittikten sonra köşeli parantez kapatılır.
+
+Örnek1: String değere sahip JSON dizisi
+[
+    "Hakan Gungor"
+]
+
+Örnek2: İki string değere sahip JSON dizisi
+[
+    "Hakan Gungor",
+    "Mehmet Gungor"
+]
+
+Örnek3: Json objesine sahip JSON dizisi
+[
+    {
+        "Ad": "Hakan",
+        "Soyad": "Gungor",
+        "Bolum": "Bilgisayar Muhendisligi",
+        "Sehir": "Ankara",
+        "Telefon": "05000000000"
+    }
+]
+
+Örnek4: Iki Json objesine sahip JSON dizisi
+[
+    {
+        "Ad": "Hakan",
+        "Soyad": "Gungor",
+        "Bolum": "Bilgisayar Muhendisligi",
+        "Sehir": "Ankara",
+        "Telefon": "05000000000"
+    },
+    {
+        "Ad": "Mehmet",
+        "Soyad": "Yağmur",
+        "Bolum": "Tıp Fakültesi",
+        "Sehir": "Malatya",
+        "Telefon": "05000000001"
+    }
+]
+
+Örnek5: Json objesine ve string degerlere sahip JSON dizisi
+[
+    {
+        "Ad": "Hakan",
+        "Soyad": "Gungor",
+        "Bolum": "Bilgisayar Muhendisligi",
+        "Okul": "Gazi Üniversitesi",
+        "Sehir": "Ankara",
+        "Telefon": "05000000000"
+    },
+    "Asp.Net MVC 5",
+    "Uygulamalarla Asp.Net 4.5"
+]
+
+Örnek6: Yazar bilgileri nesnesi ve icinde birden falza kitap tanımlanır
+
+{
+    "Ad": "Hakan",
+    "Soyad": "Gungor",
+    "Kitaplar": [
+        {
+            "Ad": "Gelecek Nesil Teknoloji",
+            "BaskiSayisi": "5"
+        },
+        {
+            "Ad": "Asenkron Programlama",
+            "BaskiSayisi": "2"
+        }
+    ]
+}
+
+AJAX Nedir? (Asynchronous JavaScript and XML” (Türkçe: Eşzamansız JavaScript ve XML))
+-------------------------------------------
+
+Bir çok programlama dili ile uyumlu çalışan bir tekniktir.
+Amaç; bütün sayfayı kullanıcıya tekrar yükletmeden, sadece gerekli olan veriyi dinamik olarak ekrana getirmek
+veya sunucuya veri göndermektir.
+Örneğin il seçtikten sonra o ile ait ilçelerin sayfa yenilenmeden gelmesi AJAX ile gerçekleşir.
+
+Ajax kullanarak sayfa yenilenmeden veri alma ve Veri Gönderim işlemleri asenkron olarak yaparız.
+
+Ajax ile veri alışverişi XMLHTTPREQUEST (XHR) şeklindeki bir obje üzerinden gerçekleşir. Bu obje internet tarayıcıları
+içerisinde bulunan bir objedir. Biz bu obje sayesinde asenkron olarak veri alışverişi yapabiliriz.
+Aldığımız ve gönderdiğimiz veriler JSON ve XML formatında olur.
+
+Ajax işlemi şöyle gerçekleşir.
+----------------------------------
+Örneğin tarayıcı üzerinde bir butona bastık. Bu işlem bir event tır. Bu event meydana geldi.
+Bu arada XmlHttpRequest objesi oluşur. Verinin bulunduğu server a HttpRequest gönderilir.(Get,Post,delete,put)
+Server gelen request e XML veya JSON tipinde bir response üretir ve istekte bulunan browsera gönderir.
+Bizde aldığımız bu datayı javascript yardımıyla asenkron olarak kullanıyoruz ve sayfamızın ilgili yerini güncelliyoruz.
+Bu veriler internet üzerindeki herhangi bir sunucudan veya Rest API dan alınabilir.
+
+
