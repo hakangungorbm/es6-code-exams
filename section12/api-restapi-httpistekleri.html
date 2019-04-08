@@ -1,0 +1,51 @@
+<!--
+
+API (Application Programming Interface - Uygulama programlama arayüzü)    
+
+API HANGI ARAMACA HIZMET EDER
+Bir uygulamanin birtakim fonksiyonlarinin baska uygulamalar tarafindan kullanilmasini
+saglayan arayuzdur. Katmandir.
+Ornek: Github API
+
+Bizim Uygulamamamiz  <data(api)=request(api)>  Karsidaki Uygulama
+
+UYGULAMALAR NEDEN API OLUSTURUYOR
+-Bazi sirketler kendi uzerinden islem yaptirarak ismini duyurmak icin API yayinliyorlar.
+Bu sayede biz bu sirketlerin bazi fonksiyonlarini kullanabiliyoruz.
+-Bazi sirketler bu islemi ucretli yaparlar.
+
+REST API NEDIR?
+Web uygulamalari arasinda iletisim saglamak icin kullandigimiz bir API turudur. Rest mimarisine dayanir.
+
+2 tane mimari vardir: 1) Rest  2) Soap
+
+AVANTAJLARI NELERDIR?
+
+- Oldukca hizli
+-Stateless yapida: Bir kullanici bir API ye istekte bulunursa ona cevap doner. O kullanicinin daha once
+yaptigi istekleri tutmaz(state[hal] tutmaz). Bu sayede Rest API daha hizlidir.
+-Rest API lerine HTTP ISTEKLERINDE(get,post,put,delete) bulunuruz.
+-Rest API yapilan isteklere genelde JSON obje olarak cevap doner.
+-Tek bir Rest API yi birden cok programlama diliyle kullanabiliriz (php, js, python, java vs)
+-API lerin yapisi degisebilir. Her API yi tanimamiz lazim. API lerin dokumantasyonu olur. Oradan bakilabilir.
+
+
+
+HTTP ISTEKLERI
+
+GET: Endpoint'e(URL) gore belli verileri alir.
+POST: Endpoint'e(URL) gore belli bir veriyi gonderir.
+PUT: Endpoint'e(URL) gore belli bir veriyi gunceller.
+DELETE: Endpoint'e(URL) gore belli bir veriyi siler.
+
+ORNEK API Endpoint leri:
+
+GET    https://api.example.com/posts
+GET    https://api.example.com/posts/10   = id si 10 olan post u aldik
+POST   https://api.example.com/posts      
+PUT    https://api.example.com/posts/1
+DELETE https://api.example.com/posts/1
+
+
+
+-->
