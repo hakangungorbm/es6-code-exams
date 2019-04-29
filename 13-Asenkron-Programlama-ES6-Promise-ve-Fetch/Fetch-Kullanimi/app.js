@@ -11,7 +11,16 @@ bir tane response doner.
 
 Fetch() methodunu this.fetch() diyerek veya direkt kendi ismiyle kullanabiliri(window objesinin methodlarini kendi ismiyle kullanibiliyoruz)
 
+KULLANIMI (syntax)
+----------------------------------------------------------------------
+fetch(url,object)
+.then(response => response.json())  // Bu satirda json objesi doner
+.then(data => { 
+  console.log(data)   // donen datayi aldik ve konsola yazdirdik
+})
+.catch(error => console.error(error))  // hata donduyse onu konsola yazdirdik
 
+ÖRNEKLER:
 
 Text dosyasindan, Rest Api den verilerimizi almaya calisacagiz.
 */
@@ -31,10 +40,11 @@ Ciktisi: fetch api bize Response objesi dondu
 
 Response {type: "basic", url: "...example.txt", redirected: false, status: 200, ok: true, …}
 
-Response objesinin PROTO kisminda isimize yarayacak 2 tane fonksiyonu gorebiliriz. Bunlar:
+Response objesinin PROTO kisminda isimize yarayacak 6 tane method gorebiliriz. Bunlardan bazilari:
 
--text()  = response larin icerigini text formatinda alir.
--json()  = response larin icerigini json formatinda alir.
+response.text()  = response larin icerigini text formatinda alir.
+response.json()  = response larin icerigini json formatinda alir.
+response.formData() =  response larin icerigini  FormData objesi formatinda alir.
 
 fonksiyonlaridir.
 
