@@ -2,19 +2,19 @@
 YANDEX TRANSLATE API kullanımını burada yapacağız.
 */
 
-//2.ADIM: 1 tane translate objesi olusturacagiz. (prototype larla yapacagiz.)
+//3.ADIM: 1 tane translate objesi olusturacagiz. (prototype ve callback kullanacağız o yüzden constructor fonk oluşturuyoruz.)
 
 //1 tane CONSTRUCTOR olusturuyoz. Bu fonksiyona cevirmek istedigimiz kelimeyi ve cevrilecek dili
-//gonderecegiz. Bu translate objesinin icinde bizim 4 tane ozelligimiz olacak
-//1) Apikey   2) tercume edilecek kelime(word) 3) Hangi dile cevrilecegi 4) XHR objemiz
+//gonderecegiz. Bu translate objesinin(constructorunun) icinde bizim 4 tane ozelligimiz (property) olacak
+//1) Apikey   2) tercume edilecek kelime(word) 3) Hangi dile cevrilecegi 4) XHR objemiz (Ajax işlemi için)
 
 function Translate(word,language) {
 
-// 1) Translate constrcutor FONSKIYONUN OZELLIKLERI
+// 1) Translate constructor FONSKIYONUN OZELLIKLERI
     this.apikey = "trnsl.1.1.20190514T185037Z.dea5bfe13667498f.3ae0719ead30a01dae3ab27af0236c9b32967a7c";
     this.word = word;
     this.language = language;
-    this.xhr = new XMLHttpRequest();
+    this.xhr = new XMLHttpRequest(); //ajax işlemlerinde kullanmak üzere 1 tane obje üretiyor ve property olarak bu fonksiyona tanımlıyoruz.
 }
 
 // 2) Translate constructor FONKSIYONUN METHODLARI
@@ -45,7 +45,9 @@ function Translate(word,language) {
     */
 
     //1-ILK METHODUMUZ AJAX ISLEMINI YAPACAK
-    Translate.prototype.translateKelime = function (callbackParametresi) {
+    Translate.prototype.translateKelime = function (callback) {  // callback fonksiyonu kullaniyoruz. Bu fonksiyon uzerinden bu methodun cagirildigi yerlere veriler (hata mesaji, ajax sonucu donen veriler vs) gonderebilecegiz.
+
+        //(Adim5) Ajax Islemi
         //Ajax ile kelimeyi tercüme ettirip sonucu döndereceğiz
         //Yandex Translate Api ye 1 tane GET REQUEST atacagiz.
 
@@ -83,12 +85,12 @@ function Translate(word,language) {
                 //Biz bunu elde edebildigimize gore aldigimiz tercume edilmis text degerini callback ile
                 //app.js de cagirdigimiz yere gonderebiliriz.
 
-                callbackParametresi(null,cevrilmisText);     // Bu sayede asenkron islemi senkron hale getirmiste oluruz.
+                callback(null,cevrilmisText);     // Bu sayede asenkron islemi senkron hale getirmiste oluruz.
                 //Ilk null parametresi hata olmadigini varsaydigimiz hata parametresi. null gonderiyoruz.
                 //Ikinci paramatre response umuz.
 
             }else {
-                callbackParametresi("Ajax isleminde HATA olustu",null);
+                callback("Ajax isleminde HATA olustu",null);
                 //1. parametre hatamiz. Ikinci parametremiz response umuz (olmadigi icin null olarak donderdik).
             }
 
