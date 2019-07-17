@@ -1,0 +1,1 @@
+//Burada sadece storage işlemlerimizi yapacağız. Yani veri depolama işlemlerini yapacağız.

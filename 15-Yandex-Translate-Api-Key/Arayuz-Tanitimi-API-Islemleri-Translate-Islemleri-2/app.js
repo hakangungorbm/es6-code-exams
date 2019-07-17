@@ -21,19 +21,32 @@ NOT: Translate API mizi PROTOTYPE, AJAX ve CALLBACK ile kullanacağız.
 NOT: ARROW FUNCTION ve PROTOTYPE ile ilgili bir tane detay özelliği göreceğiz.
 
 */
+//1.ADIM:
+/*
+İlk önce Yandex API yi kullanmak için yandex e kayıt olup bir tane API KEY alırız. 
+*/
 
-//1. ADIM: Eventlistener ları atayalım
+//2. ADIM: 
+/*Eventlistener ları atayalım
+Bu form arayüzüne baktığımızda 2 tane event oluşur. Bizde bu 2 durumu kontrol ederiz.
+1) Çevir butonuna basınca formun SUBMIT olma durumu. 
+2) Select box'tan dil seçilince altta seçilen dilin adını yazma ve bayrağını gösterme durumu.
+*/
 //-------------------------------------
 
-eventListeners();
+eventListeners();  //Javascript hoisting yaptık.
 
+//2 event listener ı kapsayan, kapsayıcı bir fonksiyon tanımlıyoruz. Kodumuzun daha düzenli olması için
 function eventListeners() {
     //Formumuzu seçelim ve submit olmasi durumunu yakalayalim(1.Event Listener)
     document.getElementById("translate-form").addEventListener("submit",translateWord);
 
     //Cevrilecek dili sectigimiz select listimizde select durumunu yakalayan(2. Event Listener)
-    //Select listlerde degerleri sectigimizde CHANGE eventi olusur.(Ezbere bil) Ama butun browserlar
-    //bu change eventini desteklemez. O yuzden secme isleminin eventini farkli yolla atariz.Ornek:
+    //Select listlerde degerleri sectigimizde CHANGE eventi olusur. (Ezbere bil) Ama biz bu change eventini
+    //addEventListener ile yaptığımız zaman butun browserlar bu change eventini desteklemez. Hata çıkar
+    //O yuzden secme isleminin eventini farkli bir yolla ekleriz. Ornek:
+    //Alttaki satırda şunu diyoruz: ID si language olan element üzerinde ONCHANGE event i oluştuğunda
+    //FUNCTİON isimli fonksiyonu çalıştır diyoruz.
     document.getElementById("language").onchange = function () {
         //Dil secildikce arayuz islemlerini yapacagiz. selectlist imiz Onchange olusunca calisacak
         //olan ui.js icerisindeki UI constructor fonksiyonunun "changeUI" methodunu cagiracagiz.
@@ -48,6 +61,8 @@ function eventListeners() {
 
 const ui = new UI();
 
+
+//Adim 6
 // 1 tane Translate objesi olusturduk. Bu obje uzerinden translate.js deki TRANSLATE fonksiyonunun
 //methodlarini cagiracagiz.DIKKAT:translate.js de tanımladımız "Translate" fonksiyonu
 //constructor fonksiyon oldugu icin ve constructor fonskiyonlardan obje turetirken parametresi varsa
@@ -75,9 +90,11 @@ function translateWord(e) {  //Parametre olarak event i gonderiyoruz
     //Select listi secip secilen degerin value sunu alalim.
     const cevrilecekdil = document.getElementById("language").value;
 
+    //Adim 9 - tercume edilecek olan kelimeyi ve cevrilecek dili degistiriyoruz.O anki inputun ve selectlist in degerlerini gonderiyoruz.
     translateObjesi.changeParameters(kelime, cevrilecekdil);
 
 
+    //Adim 7
     //Objemiz uzerinden translate.js de tanimladigimiz constructor fonksiyonunda tercume icin ajax
     //islemini yapan translateKelime() methodunu calistiralim.
     // translateObjesi.translateKelime();

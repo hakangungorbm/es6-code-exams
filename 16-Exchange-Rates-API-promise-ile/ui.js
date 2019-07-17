@@ -27,6 +27,7 @@ class UI {
   //onchange eventleri ve exchange() methodu icinden cagiriyoruz. UNUTMA
 
     //(Adim 15 ve 19)
+    //Alttaki 2 methodu tanımlıyoruz.
     firstSpanChange() {
         this.outputFirst.textContent = this.firstSelect[this.firstSelect.selectedIndex].textContent;
     }
