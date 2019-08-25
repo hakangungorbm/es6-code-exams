@@ -1,0 +1,104 @@
+CLI Nedir ve ne işe yarar - NodeJS - NPM
+CLI (Command Line Interface) aracı manuel olarak yapmak zorunda olduğumuz bazı adımları komut satırını kullanarak yapmamızı sağlar. CLI ları kullanarak o programlama dilinin veya o programlama dili için yazılmış addon ların kurulum (create), build(derleme) test, yayınlama ve çalıştırma(serve) işlemleri  komut satırı üzerinden yapılabilir.
+Günümüzde çoğu geliştirme ortamının bu tarz CLI araçları bulunuyor.
+Örnek: angular-cli , ember-cli
+Not: Ember-cli aracı ember app ve ember addon lar için yukarıda belirtilen görevlerin yanı sıra birçok konuda otomatikleşme sağlar. Ember-cli sayesinde tutarlı bir proje yapısı, güçlü bir addon desteği ve broccoli tabanlı build sistemi sağlar. 
+Ember-cli ayrıca asset(varlık) dosyalarınının yönetimi (bunlar images, fonts veya diğer asset ler) ve bu dosyalar üzerinde yapılan sıkıştırma, minify etme, birleştirme gibi işlemleri otomatikleştirir. 
+Örneğin projemizin app/styles dosyası içerisine koyduğumuz .scss dosyaları proje derlendiğinde public/assets dosyası içine alınır. 
+Yine aynı şekilde ES6 veya ES7 ile yazdığımız kodlar ember-cli-babel addon u sayesinde proje derlendiğinde otomatik olarak javascript e dönüştürülür.
+Yine aynı şekilde broccoli-uglify-js ve broccoli-clean-css addon ları sayesinde css lerin ve js dosyalarının minify edilmesi otomatikleştirilir.
+Yine aynı şekilde QUnit ve Mocha modülleri sayesinde testlerin otomatikleştirilmesini sağlar.
+Örneğin ember-cli ı kurmak için: 
+npm install -g ember-cli
+komutunu kullanırız. Npm komutunu kullanmak için bilgisayarımızda npm kurulu olması gerekir.
+Günümüzde bilgisayarımıza nodejs kurduğumuzda npm de otomatik olarak kurulmuş oluyor. Nodejs i bilgisayarımıza kurduğumuzda artık biz js dosyalarımızı çalıştırmak için tarayıcıya ihtiyaç duymayız. Bu .js dosyalarını terminalden komut kullanarak çalıştırabiliriz.
+Örneğin hakan.js adında bir js dosyasını çalıştırmak istiyorsak: node hakan.js   komutunu kullanabiliriz.
+NPM sisteminde birçok paket bulunmaktadır. Örneğin mail atan sistem. Biz bu sistemi tekrar yazmayız. Alıp kullanabiliriz.
+Paketler global ve yerel paketler şeklinde kurulabilir.  
+Yerel Paketleri kurarken proje ana dizininde iken npm install initial-js  şeklinde kurulum yaparız. Bu paketler o projenin Node Modules dizinine eklenir. Bunu yerel olarak kurmuş ve kullanmış oluyoruz.
+Global paketleri ise npm install –g initial-js  şeklinde kurarız. Bu paketler ise bilgi…… Örneğin birden çok proje geliştiriyoruz ve bizim bu projelerimiz bazı paketleri ortak olarak kullanıyor. Yani her proje simple-is paketini kullanıyor. Böyle durumlarda paketleri global olarak kurmak daha faydalı olacaktır. Bilgisayarımıza nodejs kurulumu yaptığımızda bizim bilgisayarımızda da global paketler için node_modules dizini oluşur. Bu dizinin bilgisayarımızda nerede olduğunu bulmak için npm root –g komutunu kullanabiliriz. Burada dikkat etmemiz gereken bir konuda şu; Linux ve mac os ortamlarında nodejs i kurduğumuzda global node_moduls dizini otomatik olarak oluşur ve path i environment a eklenir. Ancak Windows makinalarda bazen bu node_moduls dizinin sistem değişkenlerine path olarak eklenmez böyle durumlarda girip elle ekleme yaparız. Uygulamaların dependency olarak yazılan paketlerini yüklerken önce kendi localine bakar. İhtiyaç duyduğu paket burada yoksa sonra gidip Ortam Değişkeni olarak eklediğimiz global değişkenlerin bulunduğu node_modules dizinine bakar.
+Sistem Özellikleri –> Ortam Değişkenleri –> Yeni Kullanıcı değişkeni yolu altına:
+Değişken Adı: NODE_PATH
+Değişken: …\AppData\Roaming\npm\node_modules
+şeklinde ekleme yaparız. Bu sayede global modüller Windows tarafından bulunabilir olacak.
+Npm üzerinden paket kullanmak için npm komutlarını kullanırız. Öneğin npm install PAKETADI komutunu kullanabiliriz.  Projemize eklediğimiz paketler NODE_MODULES dosyası içine eklenir ve package.json dosyasi altina dependencies basligi altina eklenir.
+Ornek:
+"dependencies": {
+	    "ejs": "^2.5.6",
+	    "fs-promise": "^2.0.3",
+	    "koa": "^2.2.0",
+	    "koa-basic-auth": "^2.0.0",
+	    "koa-body": "^4.0.8",
+	  },
+
+
+Package.json Dosyası
+Packeage.json dosyasını bizim projelerimizin manifesto dosyası gibi düşünebiliriz. Her bir uygulama kendi içinde 1 pakettir. Her uygulama kendi içinde birden çok farklı paketlere ihtiyaç duyabilir. JS Framework ler ile oluşturulan projelerde bulunan bu package.json dosyası bu projenin hakkında bilgi verir. Ayrıca projenin hangi paketlere ihtiyaç duyduğunu burada gösterir ve yönetir. 
+Not: npm init komutu yardımıyla package.json dosyamızı projenin ana dizinine npm in oluşturmasını sağlayabiliriz.
+Not: projemizin adı her zaman eşsiz olmalıdır. Örnek package içeriği şu şekildedir:
+
+{
+	  "name": "projenin adı",
+	  "description": "Projenin tanımı",
+	  "version": "0.0.1",
+	  "repository": "https://github.com/koajs/examples",
+
+	  "keyword": "projeyi tanıtan anahtar kelimeler",
+  "author": "projenin yazılımcısı",
+	
+	  "dependencies": {
+	    "ejs": "^2.5.6",
+	    "fs-promise": "^2.0.3",
+	    "koa": "^2.2.0",
+	  },
+	  "devDependencies": {
+	    "eslint": "^3.8.1",
+	    "eslint-config-koa": "^2.0.2",
+	    "eslint-config-standard": "^6.2.0",
+	    "eslint-plugin-promise": "^3.3.0",
+	    "eslint-plugin-standard": "^2.0.1",
+	    "mocha": "^5.0.0",
+	    "should": "^3.3.2",
+	    "supertest": "^3.0.0"
+	  },
+	  "scripts": {
+	    "test": "test scritleri yazabiliriz."
+     "adiniyaz": "echo ‘Hakan Güngör’"
+
+	  },
+	  "engines": {
+	    "node": ">= 7.6"
+	  },
+	  "license": "MIT"
+	}
+Not: scripts  in altına key value şeklinde test komutları yazabiliriz. Bu sayede scriptleri otomatikleştirmiş oluruz. Yukarıda eklediğimiz “adiniyaz” keyindeki scripti npm-run adiniyaz komutu ile çalıştırabiliriz. 
+Not: “dependencies” başlığı altında projenin ihtiyaç duyduğu paketler listelenir. Dikkat edilecek önemli bir konuda; bizler projelerimizi sunucuya yüklerken node_modules dizini yüklemeyiz. Projeyi sunucuya yükleriz. Orada npm install dediğimizde dependencies başlığı altında listelenen paketler tekrar yüklenir. Github sayfasına atarkende aynı şekilde node_modules ve package-lock.json  dosyaları yüklenmez. Projeyi çalıştırmak istediğimiz dizinde npm install komutunu kullanarak package.json dosyası içindeki paketler indirilir. 
+Not: “devDependencies” başlığı altında listelenen paketler sadece development aşamasında bize gerekli olan paketler listelenir. Bir paketi devDependencies altına eklemek istersek;
+npm install initial-js –save—dev komutu ile ekleyebiliriz. Yani bu initial-js paketi sadece development aşamasında işimize yarayacaktır.
+Not: projeler içersinde bulunan package-lock.json dosyası içerisinde projede kullanılan paketlerin versiyonları tutulur.
+
+
+Git Kullanımı
+İlk önce sitesinden indirip bilgisayarımıza kurarız. Git Bash adında git ile birlikte bir tanede komut terminali de gelir. Bunu cmd nin yerine kullanabiliriz.
+Kurulum bittikten sonra komut satırına git yazarak git in kurulu olup olmadığını kontrol edebiliriz.
+Bir uygulamayı Github veya NPM e yükleme
+
+Paketlerimizi veya projelerimizi github a rutin yollardan yükler veya github üzerinden rutin yollardan clone ederiz. Burada dikkat edilecek bir konu:
+Bir web uygulamasında bulunan package.json dosyası içerisinde o projenin github veya npm repo bilgilerini saklayabiliriz. Bu bilgiler özellikle npm sisteminde önemlidir.
+Package.json dosyası içerisine:
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hakangungorbm/es6-code-exams.git"
+
+  },
+
+Şeklinde ekleme yaparız. Bu özellikle npm sistemine projemizi yüklediğimizde projemizin dizininde bulunan repository başlığı altında link olarak görünecektir. Bu sayede npm üzerinde projemizi inceleyen kullanıcılara git repo adresimizide vermiş oluruz.
+İkinci önemli nokta; bir proje github veya npm sistemine yüklenirken node_modules ve package-lock.json dosyaları yüklenmez. Bu dosyalarda saklanan bilgiler zaten package.json dosyasında dependency bölümünde bulunduğu için projelerimizi clone yaparak alan kişiler 1 kez npm install komutunu çalıştırırlar. Bizim projelerimizin dependency lerini npm üzerinden alırlar.
+
+Paketlerimizi npm üzerinde de yayınlayabiliriz. Oluşturduğumuz paketleri başkalarının kullanması için npm üzerinden yayınlayabiliriz. Bunun için üye olmamız gerekecek. 
+Yayınlamak için terminal üzerinden 
+1)	Npm login    -- username ve password bilgilerini kullanarak bu komut yardımıyla npm e bağlanırız.
+2)	Npm publish  --- komutunu kullanarak paketimizi npm de yayınlayabiliriz.
+Not: Her paket ismi uniqe olmalı. 
+Not: paketimizin dependencies kısmında bulunan paketler ve repo bilgileri npm de görünürler.
+Not: Paketimizi npm den kaldırmak için npm login yaparak bağlanıyoruz ve npm unpublish paket-adi –force   komutunu kullanabiliriz.
